@@ -8,4 +8,7 @@ export class CreateProductDto {
   @IsInt({ message: 'Giá sản phẩm phải là số' })
   @Min(1000, { message: 'Giá tối thiểu của sản phẩm là 1000' })
   price!: number;
+  @IsNotEmpty({ message: 'Danh mục không được phép để trống' })
+  @IsString({ message: 'Danh mục phải là chuỗi kí tự' })
+  category!: string;
 }

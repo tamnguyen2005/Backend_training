@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { GetProductQuery } from './dto/get-product-query.dto';
 
 @Controller('api/products')
 export class ProductsController {
@@ -22,8 +24,8 @@ export class ProductsController {
   }
 
   @Get()
-  async findAll() {
-    return this.productsService.findAll();
+  async findAll(@Query() getProductQuery: GetProductQuery) {
+    return this.productsService.findAll(getProductQuery);
   }
 
   @Get(':id')

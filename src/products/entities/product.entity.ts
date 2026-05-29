@@ -13,6 +13,8 @@ export class Product {
   name!: string;
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   price!: number;
+  @Column({ type: 'varchar', nullable: false })
+  category!: string;
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
   @CreateDateColumn({ name: 'updated_at' })
