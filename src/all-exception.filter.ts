@@ -5,12 +5,15 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { Response } from 'express';
 @Catch()
 export class AllExceptionFilter extends BaseExceptionFilter {
-  catch(exception: any, host: ArgumentsHost): void {
+  catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
-    if (exception instanceof HttpException) super.catch(exception, host);
+    const response = ctx.getResponse<Response>();
+    if (exception instanceof HttpException) {
+      return super.catch(exception, host);
+    }
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       message: 'Đã có lỗi hệ thống xảy ra. Vui lòng thử lại sau !',

@@ -42,6 +42,7 @@ export class ProductsService {
         maxPrice: getProductQuery.maxPrice,
       });
     }
+    queryBuilder.where('product.deletedAt IS NULL');
     const sort = getProductQuery.sort
       ? `product.${getProductQuery.sort}`
       : 'product.id';
@@ -61,7 +62,7 @@ export class ProductsService {
         totalItem: total,
         totalPage: Math.ceil(total / getProductQuery.limit),
       },
-    } as PaginatedResult<Product>;
+    };
   }
 
   async findOne(id: number): Promise<Product> {
@@ -80,7 +81,9 @@ export class ProductsService {
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id);
-    await this.productRepository.delete(id);
+    const result = await this.productRepository.softDelete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Không tìm thấy sản phẩm ${id} để xóa`);
+    }
   }
 }

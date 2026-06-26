@@ -8,11 +8,13 @@ import {
   Delete,
   HttpCode,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { GetProductQuery } from './dto/get-product-query.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('api/products')
 export class ProductsController {
@@ -34,6 +36,7 @@ export class ProductsController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   async update(
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
@@ -42,6 +45,7 @@ export class ProductsController {
   }
   @HttpCode(204)
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async remove(@Param('id') id: string) {
     return this.productsService.remove(+id);
   }

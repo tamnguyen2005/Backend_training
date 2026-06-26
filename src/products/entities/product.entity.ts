@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,8 +16,14 @@ export class Product {
   price!: number;
   @Column({ type: 'varchar', nullable: false })
   category!: string;
+  @Column({ type: 'varchar', nullable: true })
+  description?: string;
+  @Column({ type: 'varchar', nullable: true })
+  imageUrl?: string;
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
   @CreateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  deletedAt!: Date | null;
 }

@@ -18,7 +18,7 @@ export class GetProductQuery {
   @IsInt({ message: 'Số lượng sản phẩm trên 1 trang phải là số' })
   @Min(1, { message: 'Số lượng sản phẩm trên 1 trang tối thiểu là 1' })
   @Max(50, { message: 'Số lượng sản phẩm tối đa trên 1 trang là 50' })
-  limit: number = 10;
+  limit: number = 12;
   @IsOptional()
   @Transform(({ value }) => parseInt(value, 10))
   @Min(0)

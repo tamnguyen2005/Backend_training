@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, Min } from 'class-validator';
 
 export class CreateProductDto {
   @IsNotEmpty({ message: 'Tên sản phẩm không được phép trống' })
@@ -11,4 +11,10 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'Danh mục không được phép để trống' })
   @IsString({ message: 'Danh mục phải là chuỗi kí tự' })
   category!: string;
+  @IsNotEmpty({ message: 'Mô tả không được phép để trống' })
+  @IsString({ message: 'Mô tả phải là chuỗi kí tự' })
+  description!: string;
+  @IsNotEmpty({ message: 'Đường dẫn ảnh không được phép để trống' })
+  @IsString({ message: 'Đường dẫn ảnh phải là chuỗi kí tự' })
+  imageUrl!: string;
 }
